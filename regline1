@@ -1,0 +1,17 @@
+bundle agent SuchZeile
+{
+  files:
+    "/Verzeichnis/Beispieldatei.txt" edit_line => SucheZeile;
+}
+
+bundle edit_line SucheZeile
+{
+  classes:
+    "ZeileGefunden" expression => regline("Parameter=Wert","$(edit.filename)");
+  
+  reports:
+    ZeileGefunden::
+      "Die Zeile ist in der Datei vorhanden.";
+    !ZeileGefunden::
+      "Die Zeile ist nicht in der Datei.";
+}
