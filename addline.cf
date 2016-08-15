@@ -1,0 +1,17 @@
+bundle agent alias
+{
+
+vars:
+  "alias" string => "alias cdmp=\"cd /var/cfengine/masterfiles/MyPromises\""
+  
+files:
+  "/root/.profile"
+      create => "true",
+      edit_line => append_if_no_line("$(alias)"),
+      classes => if_else("alias_set","alias_set_error");
+            
+reports:
+  alias_set::
+            "Der Alias: $(alias) wurde in $(edit.filename) definiert.";
+
+}
